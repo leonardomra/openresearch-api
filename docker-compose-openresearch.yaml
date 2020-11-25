@@ -1,0 +1,112 @@
+version: "3"
+services:
+    
+    job:
+        build: ./job-service-component
+        env_file: [./job-service-component/.env]
+        ports: ['5000:80']
+        volumes: ['./job-service-component:/usr/src/app']
+    
+    communication:
+        build: ./communication-service-component
+        env_file: [./communication-service-component/.env]
+        ports: ['6000:80']
+        volumes: ['./communication-service-component:/usr/src/app']
+    
+    data:
+        build: ./data-service-component
+        env_file: [./data-service-component/.env]
+        ports: ['7000:80']
+        volumes: ['./data-service-component:/usr/src/app']
+    
+#    ner-train:
+#        build: ./task-service-component
+#        env_file: [./task-service-component/.env]
+#        environment:
+#            - TASK=train-ner
+#            - PYTHONUNBUFFERED=TRUE
+#        ports: ['8040:80']
+#        volumes: ['./task-service-component:/usr/src/app']
+
+#    ner-analyse:
+#        build: ./task-service-component
+#        env_file: [./task-service-component/.env]
+#        environment:
+#            - TASK=analyse-ner
+#            - PYTHONUNBUFFERED=TRUE
+#        ports: ['8050:80']
+#        volumes: ['./task-service-component:/usr/src/app']
+
+#    tml-analyse:
+#        build: ./task-service-component
+#        env_file: [./task-service-component/.env]
+#        environment:
+#            - TASK=analyse-tml
+#        ports: ['8000:80']
+#        volumes: ['./task-service-component:/usr/src/app']
+    
+#    tml-train:
+#        build: ./task-service-component
+#        env_file: [./task-service-component/.env]
+#        environment:
+#            - TASK=train-tml
+#        ports: ['8010:80']
+#        volumes: ['./task-service-component:/usr/src/app']
+    
+#    qna-train:
+#        build: ./task-service-component
+#        env_file: [./task-service-component/.env]
+#        environment:
+#            - TASK=train-qna
+#        ports: ['8020:80']
+#        volumes: ['./task-service-component:/usr/src/app']
+    
+#    qna-analyse:
+#        build: ./task-service-component
+#        env_file: [./task-service-component/.env]
+#        environment:
+#            - TASK=analyse-qna
+#        ports: ['8030:80']
+#        volumes: ['./task-service-component:/usr/src/app']
+    
+        #elasticsearch:
+    #    image: docker.elastic.co/elasticsearch/elasticsearch:7.6.2
+    #    container_name: elasticsearch
+    #    environment:
+    #        - xpack.security.enabled=false
+    #        - discovery.type=single-node
+    #    ulimits:
+    #        memlock:
+    #            soft: -1
+    #            hard: -1
+    #        nofile:
+    #            soft: 65536
+    #            hard: 65536
+    #    cap_add:
+    #        - IPC_LOCK
+    #    volumes:
+    #        - elasticsearch-data:/usr/share/elasticsearch/data
+    #    ports:
+    #        - 9200:9200
+    #        - 9300:9300
+    
+    #kibana:
+    #    container_name: kibana
+    #    image: docker.elastic.co/kibana/kibana:7.6.2
+    #    environment:
+    #        - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
+    #    ports:
+    #        - 5601:5601
+    #    depends_on:
+    #        - elasticsearch
+volumes:
+    elasticsearch-data:
+        driver: local
+
+# docker rmi `docker images | grep "repos" | awk {'print $3'}`
+# docker rmi $(docker images --filter "dangling=true" -q --no-trunc)
+# docker rmi `docker images | grep "openresearch" | awk {'print $3'}`
+# docker-compose -p "OpenResearch" -f docker-compose-openresearch.yaml up
+# docker-compose -p "OpenResearch" -f docker-compose-openresearch.yaml up --build
+# docker build --tag task_service_component:1.0 . && docker run --env-file ./.env --publish 8040:80 --detach --name task task_service_component:1.0
+# sudo ntpdate time.nist.gov
