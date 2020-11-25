@@ -1,0 +1,12 @@
+[submodule "orapi-task-service-component"]
+	path = orapi-task-service-component
+	url = https://github.com/leonardomra/orapi-task-service-component.git
+[submodule "orapi-data-service-component"]
+	path = orapi-data-service-component
+	url = https://github.com/leonardomra/orapi-data-service-component.git
+[submodule "orapi-job-service-component"]
+	path = orapi-job-service-component
+	url = https://github.com/leonardomra/orapi-job-service-component.git
+[submodule "orapi-communication-service-component"]
+	path = orapi-communication-service-component
+	url = https://github.com/leonardomra/orapi-communication-service-component.git
