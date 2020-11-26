@@ -10,16 +10,6 @@ In this regard, the API supports at the moment Topic Modeling with Latent Dirich
 
 ## Build 
 
-docker rmi `docker images | grep "repos" | awk {'print $3'}`
+Build all services of the API locally with Docker Compose:
 
-docker rmi $(docker images --filter "dangling=true" -q --no-trunc)
-
-docker rmi `docker images | grep "openresearch" | awk {'print $3'}`
-
-docker-compose -p "OpenResearch" -f docker-compose-openresearch.yaml up
-
-docker-compose -p "OpenResearch" -f docker-compose-openresearch.yaml up --build
-
-docker build --tag task_service_component:1.0 . && docker run --env-file ./.env --publish 8040:80 --detach --name task task_service_component:1.0
-
-sudo ntpdate time.nist.gov
+`docker-compose -p "OpenResearch" -f docker-compose-openresearch.yaml up --build`
